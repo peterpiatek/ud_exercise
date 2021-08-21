@@ -17,7 +17,7 @@ export default class SearchBar extends Component {
     //handling "this" - method 2 - change method fn to arrow fn
     onSubmit = e => {
         e.preventDefault();
-        console.log(this.state.userInput);
+        this.props.onSubmit(this.state.userInput);
     }
 
     render () {
@@ -30,7 +30,7 @@ export default class SearchBar extends Component {
             <form className="ui form" onSubmit={this.onSubmit}>
                 <div className="field">
                     <label>Image Search</label>
-                    <input value={this.state.userInput} onChange={ e => this.setState({userInput: e.target.value})} type="text" name="first-name" placeholder="First Name" />
+                    <input value={this.state.userInput} onChange={e => this.setState({userInput: e.target.value})} type="text" name="first-name" placeholder="First Name" />
                 </div>
                 <button className="ui button" type="submit">Submit</button>
             </form>
