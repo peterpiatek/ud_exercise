@@ -1,7 +1,7 @@
 import './App-e2.css';
 
-import axios from 'axios';
 import React, {Component} from "react";
+import unsplash from "./api/unsplash";
 
 import SearchBar from "./SearchBar";
 import ListImages from "./ListImages";
@@ -10,31 +10,24 @@ export default class AppE2 extends Component {
 
     state = {userInput: '', unsplashRes: []};
 
-    onTermSearch = userInput => {
-        const fetchPhotos = axios.create({
-            baseURL: 'https://api.unsplash.com/search/photos',
-            params: {query: userInput},
-            timeout: 1000,
-            headers: {Authorization: 'Client-ID 9LWb0np6k7dgdO9NJgny0OvfYIbEXH28TpJ1q9GZ7yI'}
-        });
-
-        fetchPhotos()
-            .then(res => this.setState({unsplashRes: res.data.results}))
-            .catch(err => console.log(err))
+    onTermSearch = async userInput => {
+        const res = await unsplash.get('/search/photos',
+            {params: {query: userInput}});
+        this.setState({unsplashRes: res.data.results});
     }
 
-    generateThumbs(){
-        console.log(this.state.unsplashRes);
-        return this.state.unsplashRes.map(image => {
-            return <img src={image.urls.thumb} alt=""/>;
-        })
+    getImagesUrls (){
+        return this.state.unsplashRes.map(result => {
+            return result.urls.thumb;
+        });
     }
 
     render() {
         return (
             <div className={'ui container'}>
                 <SearchBar onSubmit={this.onTermSearch}/>
-                <ListImages images={this.generateThumbs()}/>
+                Found {this.state.unsplashRes.length} images
+                <ListImages imagesUrls={this.getImagesUrls()}/>
             </div>
         );
     }
