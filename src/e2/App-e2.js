@@ -16,18 +16,18 @@ export default class AppE2 extends Component {
         this.setState({unsplashRes: res.data.results});
     }
 
-    getImagesUrls (){
+    //no need to extract data here for links only, better to pass the whole obj with other meta data to the list component
+    /*getImagesUrls (){
         return this.state.unsplashRes.map(result => {
             return result.urls.thumb;
         });
-    }
+    }*/
 
     render() {
         return (
             <div className={'ui container'}>
                 <SearchBar onSubmit={this.onTermSearch}/>
-                Found {this.state.unsplashRes.length} images
-                <ListImages imagesUrls={this.getImagesUrls()}/>
+                <ListImages imagesRes={this.state.unsplashRes}/>
             </div>
         );
     }

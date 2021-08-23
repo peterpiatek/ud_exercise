@@ -1,17 +1,20 @@
 import React from 'react';
+import ImageCard from "./imageCard";
 
-const ListImages = ({imagesUrls}) => {
+const ListImages = ({imagesRes}) => {
+
+    const imagesCount = 0;
 
     const generateImages =() => {
         let images;
-        if(imagesUrls.length > 0) {
-            let index = 0;
-            images = imagesUrls.map(img => {
-                return <div className={'res-img'}><img key={'img_gal' + index++} src={img} alt=""/></div>;
+        if(imagesRes.length > 0) {
+            // images = imagesRes.map(({urls, alt_description, id}) => { // destructuring to simplify input of dynamic values on the generated elements below
+            images = imagesRes.map((img) => { // destructuring to simplify input of dynamic values on the generated elements below
+                // return <div key={id} className={'res-img'}><img src={urls.thumb} alt={alt_description}/></div>;
+                return <ImageCard key={img.id} image={img} />
             })
         }
-        console.log(images);
-        return images || 'Sorry - no images';
+        return <div className={'res-img-list'}>{images}</div>;
     }
 
     /*generateThumbs(){
@@ -22,6 +25,7 @@ const ListImages = ({imagesUrls}) => {
 
     return (
         <div className={'res-img-con'}>
+            Found {imagesCount} images
             {generateImages()}
         </div>
     );
