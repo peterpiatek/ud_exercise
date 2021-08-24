@@ -5,7 +5,6 @@ import fetchMovies from "./api/youtube";
 import VideosList from "./VideosList";
 import VideoPlayer from "./VideoPlayer";
 
-
 export default class App extends Component {
 
     state = {

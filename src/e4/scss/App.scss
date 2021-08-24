@@ -1,0 +1,21 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css');
+
+
+.search-results {
+  .s-result {
+    padding: 8px;
+    border: solid 1px #ddd;
+    margin: 4px;
+    //display: none;
+    &.is-found{
+      display: block;
+    }
+    .s-results-title {
+      font-weight: bold;
+    }
+
+    .s-results-desc {
+
+    }
+  }
+}
