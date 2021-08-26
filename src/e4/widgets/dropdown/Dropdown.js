@@ -1,45 +1,51 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 
-const Dropdown = ({onSelectedChange, options, selected}) => {
-
+const Dropdown = ({onSelectedChange, options, selected, formTitle}) => {
     const [opened, setOpened] = useState('');
-    const [active, setActive] = useState('');
+
+    const ref = useRef();
 
     useEffect(() => {
-        document.body.addEventListener('click', () => {
-            if(opened === 'visible'){
-                onToggleMenu();
+        const onBodyClick = (e) => {
+            if (!ref.current.contains(e.target)) {
+                setOpened(false);
             }
-        }, {capture: true}) // from react 17 use capture prop
-    }, [])
+        }
+        document.body.addEventListener('click', onBodyClick, {capture: true});
+
+        return () => {
+            document.body.removeEventListener('click', onBodyClick, {capture: true});
+        }
+    }, []);
 
     const generateOptions = () => {
         return options.map(option => {
-            if(option.val === selected.val) {
+            if (option.val === selected.val) {
                 return null;
             }
             return (
-                <div onClick={() => {onSelectedChange(option)}} key={option.val} className="item">{option.title}</div>
+                <div onClick={() => {
+                    // console.log('item click');
+                    onSelectedChange(option)
+                }} key={option.val} className="item">{option.title}</div>
             );
         })
     }
 
-    const onToggleMenu = (e) => {
-        e.stopPropagation();
-        const isMenuOpened = opened === 'visible' ? '' : 'visible';
-        const isMenuActive = active === 'active' ? '' : 'active';
-        setOpened(isMenuOpened);
-        setActive(isMenuActive);
-    }
+    const onToggleMenu = () => {
+        setOpened(!opened);
+
+    };
 
     return (
-        <div className="ui form">
+        <div ref={ref} className="ui form">
             <div className="field">
-                <label className="label">Select a Color</label>
-                <div className={`ui selection dropdown ${active} ${opened}`} onClick={onToggleMenu}>
+                <label className="label">{formTitle}</label>
+                <div className={`ui selection dropdown ${opened === true ? 'visible active' : ''}`}
+                     onClick={onToggleMenu}>
                     <i className="dropdown icon"> </i>
                     <div className="text">Selected: {selected.title}</div>
-                    <div className={`menu transition ${opened}`}>
+                    <div className={`menu ${opened === true ? 'visible transition' : ''}`}>
                         {generateOptions()}
                     </div>
                 </div>
@@ -59,4 +65,22 @@ useEffect(() => {
         },
         { capture: true }
     );
+}, []);*/
+
+
+/*
+useEffect(() => {
+    const onBodyClick = (event) => {
+        if (ref.current.contains(event.target)) {
+            return;
+        }
+        setOpen(false);
+    };
+    document.body.addEventListener("click", onBodyClick, { capture: true });
+
+    return () => {
+        document.body.removeEventListener("click", onBodyClick, {
+            capture: true,
+        });
+    };
 }, []);*/
