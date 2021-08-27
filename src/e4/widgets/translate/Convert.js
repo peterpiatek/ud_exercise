@@ -4,29 +4,43 @@ import axios from 'axios';
 const Convert = ({translateText, lang}) => {
 
         const [translatedText, setTranslatedText] = useState('');
+        const [debTranslateText, debSetTranslateText] = useState(translatedText);
+        const [translationResult, setTranslationResult] = useState('');
 
         useEffect(() => {
 
             const axiosConfig = {
                 baseURL: 'https://translation.googleapis.com/language/translate/v2',
                 params: {
-                    q: translateText,
+                    q: debTranslateText,
                     target: lang.val,
+                    format: 'text',
+                    source: 'en',
                     key: 'AIzaSyCHUCmpR7cT_yDFHC98CZJy2LTms-IwDlM'
                 }
             }
-
             const translate = async () => {
-                const res = await axios.post('https://translation.googleapis.com/language/translate/v2', '', axiosConfig);
-                console.log(res);
-                // setTranslatedText(res);
+                const { data } = await axios.post('https://translation.googleapis.com/language/translate/v2', {}, axiosConfig);
+                setTranslationResult(data.data.translations[0].translatedText);
+            };
+            if(debTranslateText){
+                translate();
             }
-            translate();
-        }, [translateText, lang])
+
+        }, [debTranslateText, lang])
+
+        useEffect(() => {
+            const timer = setTimeout(() => {
+                debSetTranslateText(translateText);
+            }, 500)
+            return () => {
+                clearTimeout(timer);
+            }
+        }, [translateText])
 
         return (
             <div>
-
+                {translationResult}
             </div>
         );
     }
