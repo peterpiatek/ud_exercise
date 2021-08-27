@@ -6,6 +6,7 @@ const Accordion = ({items}) => {
 
     const onAccordionTitleClick = (index) => {
         setAccordionCurrentItem(index);
+        console.log(index);
     }
 
     const generateItems = () => {
@@ -14,7 +15,7 @@ const Accordion = ({items}) => {
             const activeCssClass = index === accordionCurrentItem ? 'active' : '';
             return (
                 <React.Fragment key={item.title} >
-                    <div className={`title ${activeCssClass}`} onClick={onAccordionTitleClick}>
+                    <div className={`title ${activeCssClass}`} onClick={() => {onAccordionTitleClick(index)}}>
                         <i className="dropdown icon"> </i>
                         {item.title}
                     </div>
