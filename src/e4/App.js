@@ -1,5 +1,4 @@
 import React,{useState} from 'react';
-// import Accordion from "./widgets/accordion/Accordion";
 import './App.css';
 import Dropdown from "./widgets/dropdown/Dropdown";
 import Translate from "./widgets/translate/Translate";
@@ -7,8 +6,6 @@ import Accordion from "./widgets/accordion/Accordion";
 import Search from "./widgets/search/SearchWikipedia";
 import Router from "./widgets/Router";
 import Header from "./widgets/Header";
-// import Search from "./Search";
-// import SearchWikipedia from "./widgets/search/SearchWikipedia";
 
 const App = () => {
 

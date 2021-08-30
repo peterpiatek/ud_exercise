@@ -11,6 +11,7 @@ const Link = ({children, loc, css}) => {
 
         e.preventDefault();
         window.history.pushState({}, '', link);
+
         //pushing event to Router components in App
         const navEvent = new PopStateEvent('popstate');
         window.dispatchEvent(navEvent);

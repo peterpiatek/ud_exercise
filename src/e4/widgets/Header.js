@@ -13,7 +13,6 @@ const Header = () => {
     ]
     const setActiveLink = (e, link) => {
         e.preventDefault();
-        window.location.pathname = link.loc;
         setSelectedNavLink(link);
     }
 
