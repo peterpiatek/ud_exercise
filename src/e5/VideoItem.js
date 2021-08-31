@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 
-const VideoItem = ({title, thumbUrl, videoID, onVideoItemClick}) => {
+const VideoItem = ({title, thumbUrl, videoID}) => {
 
     const [selectedVideo, setSelectedVideo] = useState('');
 
     const videoItemClick = (videoID) => {
+        console.log(videoID);
         const event = new CustomEvent('playVideo', {detail: videoID}, false)
         window.dispatchEvent(event);
     }

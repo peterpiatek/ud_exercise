@@ -8,6 +8,7 @@ const VideoList = ({videos}) => {
             return (
                 <div className="ui items">
                     <VideoItem
+                        key={video.id.videoId}
                         videoID = {video.id.videoId}
                         title={video.snippet.title}
                         thumbUrl={video.snippet.thumbnails.default.url} />

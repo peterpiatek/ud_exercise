@@ -1,23 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
+import Link from "./Link";
 
 const Header = ({links}) => {
 
-    //@todo: create link component
-    //@todo: move linkclick to new component
-    const linkClick = (e, link) => {
-        e.preventDefault()
-        window.history.pushState({}, '', link.path);
+    const [selected, setSelected] = useState('');
 
-        const event = new Event('popstate');
-
-    };
+    console.log(selected);
 
     const generateLinks = () => {
         return links.map(link => {
+            const activeLink = selected === link.path ? 'active' : '';
             return (
-                <a href={link.path} onClick={ (e) => linkClick(e, link)} className="item">
-                    {link.title}
-                </a>
+                <Link
+                    selected={activeLink}
+                    onLinkClick={(path) => {setSelected(path)}}
+                    path={link.path}
+                    title={link.title} />
             );
         })
     }

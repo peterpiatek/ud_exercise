@@ -1,10 +1,23 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 const Router = ({path, children}) => {
 
+    const [pathUrl, setPathUrl] = useState('');
+
+    const popstateHandler = (e) => {
+        setPathUrl(window.location.pathname);
+    }
+
+    useEffect(() => {
+        window.addEventListener('popstate', popstateHandler, {capture: true});
+        return () => {
+            window.removeEventListener('popstate', popstateHandler, {capture: true})
+        }
+    }, []);
+
     return (
         <React.Fragment>
-            { window.location.pathname === path ? children : '' }
+            { pathUrl === path ? children : '' }
         </React.Fragment>
     );
 };

@@ -6,13 +6,15 @@ const Player = () => {
 
     useEffect(() => {
         const playHandler = (e) => {
+            console.log(e);
             if(e.detail){
                 setVideoID(e.detail);
             }
         }
         window.addEventListener('playVideo', playHandler, {capture: true});
-
-        return window.removeEventListener('playVideo', playHandler, {capture: true})
+        return () => {
+            window.removeEventListener('playVideo', playHandler, {capture: true});
+        }
     }, []);
 
     return (
