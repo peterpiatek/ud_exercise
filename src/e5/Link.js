@@ -1,9 +1,9 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 
 const Link = ({title, path, selected, onLinkClick}) => {
 
     const linkClick = (e, path) => {
-        e.preventDefault()
+        e.preventDefault();
         window.history.pushState({}, '', path);
 
         const event = new Event('popstate');

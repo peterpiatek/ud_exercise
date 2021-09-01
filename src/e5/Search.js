@@ -6,8 +6,12 @@ const Search = ({userInput, onSearch}) => {
         onSearch(term);
     }
 
+    const onFormSubmit = (e) => {
+        e.preventDefault();
+    }
+
     return (
-        <form className="ui form">
+        <form onSubmit={e => {onFormSubmit(e)}} className="ui form">
             <div className="field">
                 <label>Search for...</label>
                 <input

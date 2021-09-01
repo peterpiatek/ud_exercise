@@ -17,7 +17,7 @@ const App = () => {
     }
 
     const links = [
-        {title: 'View 1', path: '/view1'},
+        {title: 'View 1', path: '/'},
         {title: 'View 2', path: '/view2'},
     ];
 
@@ -44,7 +44,7 @@ const App = () => {
     return (
         <div>
             <Header links={links} />
-            <Router path="/view1">
+            <Router path="/">
                 <div className="ui grid container">
                     <div className="sixteen wide column" style={{marginTop: '16px'}}>
                         <Search userInput={userInput} onSearch={onSearchInput}/>

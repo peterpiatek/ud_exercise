@@ -5,13 +5,12 @@ const Header = ({links}) => {
 
     const [selected, setSelected] = useState('');
 
-    console.log(selected);
-
     const generateLinks = () => {
         return links.map(link => {
             const activeLink = selected === link.path ? 'active' : '';
             return (
                 <Link
+                    key={link.title}
                     selected={activeLink}
                     onLinkClick={(path) => {setSelected(path)}}
                     path={link.path}

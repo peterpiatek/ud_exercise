@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 
 const Router = ({path, children}) => {
 
-    const [pathUrl, setPathUrl] = useState('');
+    const [pathUrl, setPathUrl] = useState(window.location.pathname);
 
     const popstateHandler = (e) => {
         setPathUrl(window.location.pathname);
