@@ -7,5 +7,4 @@ export default axios.create({
     params: {
         key: KEY
     }
-    // headers: {'authorization': 'Bearer AIzaSyCQ9SyU3Fgnf_Nz1m9SSHIOEKamvOnNnBg'}
 })

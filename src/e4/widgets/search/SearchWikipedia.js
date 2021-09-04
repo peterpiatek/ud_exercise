@@ -67,7 +67,7 @@ const Search = () => {
     }*/
 
 
-    //replaced by useeffect created to deal with too many api requests because of added resData.length to useEffect dependency array due to js console error (and best practice). Above solution use debounce variable
+    //replaced by useeffect created to deal with too many apis requests because of added resData.length to useEffect dependency array due to js console error (and best practice). Above solution use debounce variable
     /*useEffect(() => {
 
         const axiosConfig = {
