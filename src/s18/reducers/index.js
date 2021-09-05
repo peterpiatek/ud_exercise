@@ -1,12 +1,8 @@
 import {combineReducers} from "redux";
-
-const posts = (posts = [], action) => {
-    if(action.type === 'GET_POSTS'){
-        return action.payload
-    }
-    return posts;
-}
+import {posts} from './postsReducer';
+import {users} from './usersReducer';
 
 export default combineReducers({
-    posts
+    posts,
+    users
 });
