@@ -1,13 +1,12 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
-import {getPosts, getUsers} from "../actions";
+import {getPosts} from "../actions";
 import PostAuthor from "./PostAuthor";
 
 class PostList extends Component {
 
     componentDidMount() {
         this.props.getPosts();
-        this.props.getUsers();
     }
 
     renderlist = () => {
@@ -19,7 +18,7 @@ class PostList extends Component {
                         <div className="description">
                             <h2>{post.title}</h2>
                             <p>{post.body}</p>
-                            <PostAuthor />
+                            <PostAuthor userId={post.userId} />
                         </div>
                     </div>
                 </div>
@@ -28,7 +27,6 @@ class PostList extends Component {
     }
 
     render(){
-        console.log(this.props.users);
         return (
             <div className="ui relaxed divided list">
                 {this.renderlist()}
@@ -40,8 +38,7 @@ class PostList extends Component {
 const mapStateToProps = state => {
     return {
         posts: state.posts,
-        users: state.users
     };
 }
 
-export default connect(mapStateToProps, {getPosts, getUsers})(PostList);
+export default connect(mapStateToProps, {getPosts})(PostList);

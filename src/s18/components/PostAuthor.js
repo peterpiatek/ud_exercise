@@ -1,11 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {connect} from "react-redux";
+import {getUser} from "../actions";
 
-const PostAuthor = (user) => {
-    return (
-        <div>
+class PostAuthor extends Component  {
+    /*componentDidMount() {
+        const fetchedUser = this.props.users.find(user => {
+            return user.id === this.props.userId ? user : null
+        })
+        if(!fetchedUser){
+            this.props.getUser(this.props.userId);
+        }
+    }*/
 
-        </div>
-    );
-};
+    render () {
+        return (
+            <div style={{display: 'flex'}}>
+                <span
+                    style={{marginRight: '12px'}}>
+                    <strong></strong></span> Email:&nbsp;
+            </div>
+        );
+    }
+}
 
-export default PostAuthor;
+const mapStateToProps = state => {
+    console.log(state.users);
+    return {users: state.users};
+}
+
+export default connect(mapStateToProps, {getUser})(PostAuthor);
