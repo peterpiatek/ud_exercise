@@ -10,7 +10,10 @@ class PostList extends Component {
     }
 
     renderlist = () => {
-        return this.props.posts.map(post => {
+        return this.props.posts.map((post, index) => {
+            if(index >= 15){
+                return null;
+            }
             return (
                 <div className="item" key={post.id}>
                     <i className="large middle aligned icon user"/>

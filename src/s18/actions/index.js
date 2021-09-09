@@ -5,10 +5,10 @@ export const getPosts = () => async dispatch => {
     dispatch({ type: 'GET_POSTS', payload: response.data })
 }
 
-export const getUser = userID => async dispatch => {
-    const response = await jsonP.get('/users/' + userID);
+export const getUser = id => async dispatch => {
+    const response = await jsonP.get(`/users/${id}`);
     dispatch({
         type: 'GET_USER',
         payload: response.data
-    });
+    })
 }
