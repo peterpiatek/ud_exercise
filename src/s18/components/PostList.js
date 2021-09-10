@@ -1,19 +1,16 @@
 import React,{Component} from 'react';
 import {connect} from "react-redux";
-import {getPosts} from "../actions";
+import {getPostsAndUsers} from "../actions";
 import PostAuthor from "./PostAuthor";
 
 class PostList extends Component {
 
     componentDidMount() {
-        this.props.getPosts();
+        this.props.getPostsAndUsers();
     }
 
     renderlist = () => {
-        return this.props.posts.map((post, index) => {
-            if(index >= 15){
-                return null;
-            }
+        return this.props.posts.map((post) => {
             return (
                 <div className="item" key={post.id}>
                     <i className="large middle aligned icon user"/>
@@ -44,4 +41,4 @@ const mapStateToProps = state => {
     };
 }
 
-export default connect(mapStateToProps, {getPosts})(PostList);
+export default connect(mapStateToProps, {getPostsAndUsers})(PostList);

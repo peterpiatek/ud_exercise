@@ -1,14 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getUser} from "../actions";
+import _ from "lodash";
 
 class PostAuthor extends Component {
-
-    componentDidMount() {
-        if (!this.props.user) {
-            this.props.getUser(this.props.userId);
-        }
-    }
 
     render() {
         const {user} = this.props;
@@ -25,7 +19,7 @@ class PostAuthor extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => {
-    return {user: state.users.find(user => user.id === ownProps.userId)};
+    return {user: _.find(state.users, ['id', ownProps.userId])}
 }
 
-export default connect(mapStateToProps, {getUser})(PostAuthor);
+export default connect(mapStateToProps)(PostAuthor);
