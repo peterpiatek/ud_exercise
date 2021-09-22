@@ -9,6 +9,8 @@ import App from './s18/App';
 
 const store = createStore(reducers, applyMiddleware(thunk));
 
+//update check
+
 ReactDOM.render(
     <Provider store={store}>
         <App/>
