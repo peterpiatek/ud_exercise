@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 // import reducers from './s18/reducers'
 // import thunk from 'redux-thunk';
 
-import App from './s27/components/App'
+import App from './exc_todo/components/App'
 
 // const store = createStore(reducers, applyMiddleware(thunk));
 
