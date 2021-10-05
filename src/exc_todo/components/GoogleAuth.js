@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Link} from "react-router-dom";
+import {connect} from "react-redux";
+import {signIn, signOut} from "../actions";
 
 class GoogleAuth extends Component {
 
@@ -9,51 +10,63 @@ class GoogleAuth extends Component {
                 clientId: '857744595856-hjm0f2e0qk64elb9cf7nffgnagn696a4.apps.googleusercontent.com'
             })
             this.onSignInStatusChange(this.auth.isSignedIn.get());
+            this.auth.isSignedIn.listen(this.onSignInStatusChange);
         })
     }
 
     onSignInStatusChange = (status) => {
-        if(!status){
-            return 'Sign In'
+        if (status) {
+            const userData = this.auth.currentUser.get().getBasicProfile();
+            const userProfile = {
+                name: userData.getName(),
+                email: userData.getEmail(),
+                imageUrl: userData.getImageUrl()
+            }
+
+            this.props.signIn(userProfile);
         } else {
-            return 'Sign Out'
+            this.props.signOut();
         }
     }
 
-    onSignIn = () => {
+    onSignInClick = () => {
         this.auth.signIn();
     }
 
-    onSignOut = () => {
+    onSignOutClick = () => {
         this.auth.signOut();
     }
 
     renderButtons = () => {
-        if(this.auth.isSignedIn.get()){
+        if (!this.props.isSignedIn) {
             return (
-                <Link onClick={this.onSignIn()} className="ui primary button">
+                <button onClick={this.onSignInClick} className="ui primary button">
                     <i className="icon google"/>
                     Sign In
-                </Link>
+                </button>
             );
         } else {
             return (
-                <Link onClick={this.onSignOut()} className="ui primary button">
+                <button onClick={this.onSignOutClick} className="ui primary button">
                     <i className="icon google"/>
                     Sign Out
-                </Link>
+                </button>
             );
         }
     }
 
-    render (){
+    render() {
         return (
             <div>
                 {this.renderButtons()}
             </div>
         );
     }
-
 }
 
-export default GoogleAuth;
+const mapStateToProps = state => {
+    return { isSignedIn: state.auth.isSignedIn }
+}
+
+
+export default connect(mapStateToProps, {signIn, signOut})(GoogleAuth);
