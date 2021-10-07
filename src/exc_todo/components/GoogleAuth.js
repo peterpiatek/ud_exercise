@@ -20,7 +20,8 @@ class GoogleAuth extends Component {
             const userProfile = {
                 name: userData.getName(),
                 email: userData.getEmail(),
-                imageUrl: userData.getImageUrl()
+                imageUrl: userData.getImageUrl(),
+                userId: userData.getId()
             }
 
             this.props.signIn(userProfile);

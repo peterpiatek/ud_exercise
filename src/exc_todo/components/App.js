@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
-import TodoList from "./TodoList";
-import TodoNew from "./TodoNew";
-import TodoEdit from "./TodoEdit";
-import TodoDetails from "./TodoDetails";
-import Header from "./Header";
+import TodoList from "./todos/TodoList";
+import TodoNew from "./todos/TodoNew";
+import TodoEdit from "./todos/TodoEdit";
+import TodoDetails from "./todos/TodoDetails";
+import Header from "./todos/Header";
 
 class App extends Component {
     render() {

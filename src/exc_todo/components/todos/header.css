@@ -1,0 +1,33 @@
+.header-user-account {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-bottom: solid 2px #ccc;
+    padding-bottom: 16px;
+    margin-bottom: 16px;
+}
+
+.header-user-account h4 {
+    margin: 6px 0 0px 0;
+}
+
+.header-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    overflow: hidden;
+}
+
+.header-avatar img {
+    max-width: 100%;
+}
+.header-email{
+    font-size: 0.9rem;
+    color: #999;
+}
+.header-logo{
+    font-size: 1.4rem;
+    color: coral;
+    letter-spacing: -2px;
+}

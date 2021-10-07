@@ -1,17 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 import './header.css';
-import GoogleAuth from "./GoogleAuth";
+import GoogleAuth from "../GoogleAuth";
 import {connect} from "react-redux";
 
 const Header = (props) => {
 
     const renderUserProfile = () => {
-        if(props.userProfile){
+        if (props.userProfile) {
             return (
                 <div className="header-user-account">
-                    <img src={props.userProfile.imageUrl} alt=""/>
+                    <div className="header-avatar">
+                        <img src={props.userProfile.imageUrl} alt=""/>
+                    </div>
                     <h4>{props.userProfile.name}</h4>
+                    <span className="header-email">{props.userProfile.email}</span>
                 </div>
             );
         } else {
@@ -30,7 +33,7 @@ const Header = (props) => {
     return (
         <div>
             <div className="ui secondary menu" style={{marginTop: '24px'}}>
-                <Link className="item" to="/"><strong style={{fontSize: '1.2rem'}}>TODOIST</strong></Link>
+                <Link className="item" to="/"><strong className="header-logo">TODOIST</strong></Link>
                 <div className="right menu">
                     <div className="item">
                         <Link to="" className="ui basic button">
@@ -39,7 +42,7 @@ const Header = (props) => {
                         </Link>
                     </div>
                     <div className="item">
-                        <GoogleAuth />
+                        <GoogleAuth/>
                     </div>
                 </div>
             </div>
@@ -49,7 +52,6 @@ const Header = (props) => {
 }
 
 const mapStatetoProps = state => {
-    console.log(state.auth.profile);
     return {
         userProfile: state.auth.profile
     }
