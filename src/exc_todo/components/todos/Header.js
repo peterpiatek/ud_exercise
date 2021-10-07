@@ -36,7 +36,7 @@ const Header = (props) => {
                 <Link className="item" to="/"><strong className="header-logo">TODOIST</strong></Link>
                 <div className="right menu">
                     <div className="item">
-                        <Link to="" className="ui basic button">
+                        <Link to="/todo/new" className="ui basic button">
                             <i className="icon plus square outline"/>
                             Add Todo
                         </Link>

@@ -13,9 +13,9 @@ class TodoList extends React.Component {
         if (this.props.isSignedIn && (this.props.currentUser === todo.userId)) {
             return (
                 <div>
-                    <button className="ui button small green">Done</button>
-                    <button className="ui button small">Edit</button>
-                    <button className="ui button small">Delete</button>
+                    <button  className="ui button mini green">Done</button>
+                    <Link to={`/todo/edit/${todo.id}`} className="ui button mini">Edit</Link>
+                    <button  className="ui button mini">Delete</button>
                 </div>
             );
         }
@@ -32,7 +32,7 @@ class TodoList extends React.Component {
                     </div>
                     <i className="icon pencil alternate large middle aligned"/>
                     <div className="content">
-                        <a className="header">{todo.title}</a>
+                        <Link to={`/todo/details/${todo.id}`} className="header">{todo.title}</Link>
                     </div>
                 </div>
 

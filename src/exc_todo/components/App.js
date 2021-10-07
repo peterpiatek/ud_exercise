@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {Router, Switch, Route} from 'react-router-dom';
 import TodoList from "./todos/TodoList";
 import TodoNew from "./todos/TodoNew";
 import TodoEdit from "./todos/TodoEdit";
 import TodoDetails from "./todos/TodoDetails";
 import Header from "./todos/Header";
+import history from '../history';
 
 class App extends Component {
     render() {
         return (
             <div className="ui container">
-                <Router>
+                <Router history={history}>
                     <Header/>
                     <Switch>
                         <Route path="/" exact component={TodoList}/>
