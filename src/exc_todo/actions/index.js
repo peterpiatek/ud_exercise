@@ -1,4 +1,5 @@
 import {
+    DELETE_TODO, EDIT_TODO,
     FETCH_TODO,
     FETCH_TODOS,
     SIGN_IN,
@@ -40,4 +41,21 @@ export const fetchTodo = id => async dispatch => {
         type: FETCH_TODO,
         payload: response.data
     })
+}
+
+export const deleteTodo = id => async dispatch => {
+    await api.delete(`/todos/${id}`);
+    dispatch({
+        type: DELETE_TODO,
+        payload: id
+    })
+}
+
+export const editTodo = todo => async dispatch => {
+    const response = await api.patch(`/todos/${todo.id}`, todo);
+    dispatch({
+        type: EDIT_TODO,
+        payload: response.data
+    })
+    history.push('/');
 }

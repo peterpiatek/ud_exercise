@@ -1,9 +1,15 @@
 import React from 'react';
 import {connect} from "react-redux";
-import {fetchTodos} from "../../actions";
+import {deleteTodo, editTodo, fetchTodos} from "../../actions";
 import {Link} from "react-router-dom";
+import Modal from "../Modal";
 
 class TodoList extends React.Component {
+
+    state = {
+        modalState: 'active',
+        todoToDelete: null
+    }
 
     componentDidMount() {
         this.props.fetchTodos();
@@ -13,15 +19,15 @@ class TodoList extends React.Component {
         if (this.props.isSignedIn && (this.props.currentUser === todo.userId)) {
             return (
                 <div>
-                    <button  className="ui button mini green">Done</button>
-                    <Link to={`/todo/edit/${todo.id}`} className="ui button mini">Edit</Link>
-                    <button  className="ui button mini">Delete</button>
+                    <button onClick={() => this.todoDoneUpdate(todo)} className={`ui button mini ${!todo.status && 'green'}`}>{(todo.status && 'Undo') || 'Done'}</button>
+                    <Link to={`/todo/edit/${todo.id}`} className="ui button mini basic"><i className="icon pencil alternate"/></Link>
+                    <button onClick={() => {this.setState({todoToDelete: todo, modalState: 'active'})}} className="ui button mini basic orange">X</button>
                 </div>
             );
         }
     }
 
-    rednerStreamCreate = () => this.props.isSignedIn && <Link className="ui button primary" to="/todo/new" >Add new Todo</Link>;
+    renderStreamCreate = () => this.props.isSignedIn && <Link className="ui button primary" to="/todo/new" >Add new Todo</Link>;
 
     renderList = () => {
         return this.props.todos.map(todo => {
@@ -40,11 +46,48 @@ class TodoList extends React.Component {
         })
     }
 
+    showModal = () => {
+        const {todoToDelete} = this.state;
+        if(todoToDelete){
+            return <Modal
+                active={this.state.modalState}
+                title="Are you sure you want to delete this todo?"
+                subtitle={todoToDelete.title}
+                onDismiss={this.dismissModal}
+                actions={this.renderModalActions(todoToDelete.id)}
+            />
+        }
+    }
+
+    dismissModal = () => {
+        this.setState({todoToDelete: null, modalState: ''})
+    }
+
+    renderModalActions = (id) => {
+        const onDeleteClick = () => {
+            this.props.deleteTodo(id)
+            // this.props.fetchTodos();
+            this.dismissModal();
+        }
+        return (
+            <React.Fragment>
+                <div onClick={onDeleteClick} className="ui button red">Delete</div>
+                <div onClick={this.dismissModal} className="ui button">Cancel</div>
+            </React.Fragment>
+        );
+    }
+
+    todoDoneUpdate = (todo) => {
+        todo.status = !todo.status
+        this.props.editTodo(todo);
+    }
+
     render() {
         return (
             <div className="ui relaxed divided list">
+                {this.showModal()}
                 {this.renderList()}
-                {this.rednerStreamCreate()}
+                {this.renderStreamCreate()}
             </div>
         );
     }
@@ -59,4 +102,4 @@ const mapStateToProps = state => {
     }
 }
 
-export default connect(mapStateToProps, {fetchTodos})(TodoList);
+export default connect(mapStateToProps, {fetchTodos, deleteTodo, editTodo: editTodo})(TodoList);
