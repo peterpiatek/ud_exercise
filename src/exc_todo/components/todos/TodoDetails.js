@@ -1,16 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from "react-redux";
 import {deleteTodo, editTodo, fetchTodo} from "../../actions";
 import {Link} from "react-router-dom";
 
-class TodoDetails extends React.Component {
+const TodoDetails = (props) => {
 
-    componentDidMount() {
-        this.props.fetchTodo(this.props.match.params.id);
-    }
+    useEffect(()=> {
+        props.fetchTodo(props.match.params.id);
+    }, []);
 
-    renderDetails = () => {
-        const {title, description, date} = this.props.todo;
+    const renderDetails = () => {
+        const {title, description, date} = props.todo;
         return (
             <div>
                 <h1>{title}</h1>
@@ -20,35 +20,33 @@ class TodoDetails extends React.Component {
         );
     }
 
-    renderAdmin = () => {
-        if (this.props.isSignedIn && this.props.currentUser === this.props.todo.userId) {
+    const renderAdmin = () => {
+        if (props.isSignedIn && props.currentUser === props.todo.userId) {
             return (
                 <div style={{marginTop: '24px', maxWidth: '250px'}} className="three ui buttons">
-                    <button onClick={() => this.todoDoneUpdate(this.props.todo)} className={`ui button mini ${!this.props.todo.status && 'green'}`}>{(this.props.todo.status && 'Undo') || 'Done'}</button>
-                    <Link to={`/todo/edit/${this.props.todo.id}`} className="ui button mini">Edit</Link>
-                    <button onClick={() => {this.setState({todoToDelete: this.props.todo, modalState: 'active'})}} className="ui button mini orange">Delete</button>
+                    <button onClick={() => todoDoneUpdate(props.todo)} className={`ui button mini ${!props.todo.status && 'green'}`}>{(props.todo.status && 'Undo') || 'Done'}</button>
+                    <Link to={`/todo/edit/${props.todo.id}`} className="ui button mini">Edit</Link>
+                    <button className="ui button mini orange">Delete</button>
                 </div>
             );
         }
     }
 
-    todoDoneUpdate = (todo) => {
+    const todoDoneUpdate = (todo) => {
         todo.status = !todo.status
-        this.props.editTodo(todo);
+        props.editTodo(todo);
     }
 
-    render() {
-        if (!this.props?.todo) {
-            return <div>Loading...</div>;
-        }
-        return (
-            <div>
-                <div>{this.renderDetails()}</div>
-                <div>{this.renderAdmin()}</div>
-            </div>
-
-        );
+    if (!props?.todo) {
+        return <div>Loading...</div>;
     }
+    return (
+        <div>
+            <div>{renderDetails()}</div>
+            <div>{renderAdmin()}</div>
+        </div>
+
+    );
 }
 
 const mapStateToProps = (state, getProps) => {

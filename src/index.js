@@ -4,6 +4,8 @@ import {Provider} from "react-redux";
 import {applyMiddleware, compose, createStore} from "redux";
 import reducers from './exc_todo/reducers'
 import thunk from 'redux-thunk';
+import App from "./s27_exc/components/App";
+/*
 
 import App from './exc_todo/components/App'
 
@@ -16,3 +18,7 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+*/
+
+
+ReactDOM.render(<App />, document.getElementById('root'));
